@@ -24,20 +24,35 @@ function GoogleAuth() {
 		});
 	}, []);
 
+	const onSignIn = () => {
+		window.gapi.auth2.getAuthInstance().signIn();
+	};
+
+	const onSignOut = () => {
+		window.gapi.auth2.getAuthInstance().signOut();
+	};
+
 	function renderAuthButton() {
-		if (isSignedIn) {
-			console.log(isSignedIn);
-			return <div>is signed in</div>;
-		} else if (isSignedIn === null) {
-			console.log(isSignedIn);
-			return <div>don't know if sigend in</div>;
+		if (isSignedIn === null) {
+			return null;
+		} else if (isSignedIn) {
+			return (
+				<button onClick={onSignOut} className="ui red google button">
+					<i className="google icon" />
+					Sign Out
+				</button>
+			);
 		} else {
-			console.log(isSignedIn);
-			return <div>not signed in</div>;
+			return (
+				<button onClick={onSignIn} className="ui green google button">
+					<i className="google icon" />
+					Sign In with Google
+				</button>
+			);
 		}
 	}
 
-	return <div>{renderAuthButton()}GoogleAuth</div>;
+	return <div>{renderAuthButton()}</div>;
 }
 
 export default GoogleAuth;
