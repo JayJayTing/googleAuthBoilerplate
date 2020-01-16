@@ -17,6 +17,9 @@ function GoogleAuth() {
 					auth = window.gapi.auth2.getAuthInstance();
 					auth.signIn(); //this is async
 					setIsSignedIn(auth.isSignedIn.get());
+					auth.isSignedIn.listen(() => {
+						setIsSignedIn(auth.isSignedIn.get());
+					});
 				});
 		});
 	}, []);
